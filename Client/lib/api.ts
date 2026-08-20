@@ -1,6 +1,10 @@
 import type { Market, CategoryInfo } from './types';
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+let BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+if (!BACKEND_URL.startsWith('http')) {
+  BACKEND_URL = `https://${BACKEND_URL}`;
+}
+BACKEND_URL = BACKEND_URL.replace(/\/$/, '');
 const API_BASE_URL = typeof window !== 'undefined' ? '/v1' : `${BACKEND_URL}/v1`;
 
 let isRefreshing = false;

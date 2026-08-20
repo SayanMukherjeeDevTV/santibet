@@ -5,7 +5,12 @@ const nextConfig = {
   },
   images: { unoptimized: true },
   async rewrites() {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+    let apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+    if (!apiUrl.startsWith('http')) {
+      apiUrl = `https://${apiUrl}`;
+    }
+    apiUrl = apiUrl.replace(/\/$/, '');
+    
     return [
       {
         source: '/v1/:path*',
