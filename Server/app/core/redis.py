@@ -1,0 +1,31 @@
+"""Shared async Redis client used for caching, pubsub (websocket fan-out),
+and rate limiting."""
+from __future__ import annotations
+
+from redis.asyncio import Redis, from_url
+
+from app.core.config import settings
+
+_redis: Redis | None = None
+
+
+def get_redis() -> Redis:
+    global _redis
+    if _redis is None:
+        _redis = from_url(settings.redis_url, decode_responses=True)
+    return _redis
+
+
+async def close_redis() -> None:
+    global _redis
+    if _redis is not None:
+        await _redis.close()
+        _redis = None
+
+
+def market_channel(slug: str) -> str:
+    return f"market:{slug}"
+
+
+def user_channel(user_id: str) -> str:
+    return f"user:{user_id}"
