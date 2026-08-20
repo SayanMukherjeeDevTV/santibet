@@ -1,6 +1,7 @@
 import type { Market, CategoryInfo } from './types';
 
-const API_BASE_URL = typeof window !== 'undefined' ? '/v1' : 'http://127.0.0.1:8000/v1';
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = typeof window !== 'undefined' ? '/v1' : `${BACKEND_URL}/v1`;
 
 let isRefreshing = false;
 let refreshPromise: Promise<string | null> | null = null;

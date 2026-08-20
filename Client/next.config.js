@@ -5,10 +5,11 @@ const nextConfig = {
   },
   images: { unoptimized: true },
   async rewrites() {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
     return [
       {
         source: '/v1/:path*',
-        destination: 'http://127.0.0.1:8000/v1/:path*',
+        destination: `${apiUrl}/v1/:path*`,
       },
     ]
   },
