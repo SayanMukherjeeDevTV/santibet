@@ -1,15 +1,7 @@
 import type { Market, CategoryInfo } from './types';
 
-let BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
-if (!BACKEND_URL) {
-  BACKEND_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://santibet-api.onrender.com'
-    : 'http://127.0.0.1:8000';
-}
-if (!BACKEND_URL.startsWith('http')) {
-  BACKEND_URL = `https://${BACKEND_URL}`;
-}
-BACKEND_URL = BACKEND_URL.replace(/\/$/, '');
+const isProd = process.env.NODE_ENV === 'production';
+const BACKEND_URL = isProd ? 'https://santibet-api.onrender.com' : 'http://127.0.0.1:8000';
 const API_BASE_URL = typeof window !== 'undefined' ? '/v1' : `${BACKEND_URL}/v1`;
 
 let isRefreshing = false;

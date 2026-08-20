@@ -5,16 +5,8 @@ const nextConfig = {
   },
   images: { unoptimized: true },
   async rewrites() {
-    let apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    if (!apiUrl) {
-      apiUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://santibet-api.onrender.com'
-        : 'http://127.0.0.1:8000';
-    }
-    if (!apiUrl.startsWith('http')) {
-      apiUrl = `https://${apiUrl}`;
-    }
-    apiUrl = apiUrl.replace(/\/$/, '');
+    const isProd = process.env.NODE_ENV === 'production';
+    const apiUrl = isProd ? 'https://santibet-api.onrender.com' : 'http://127.0.0.1:8000';
     
     return [
       {
