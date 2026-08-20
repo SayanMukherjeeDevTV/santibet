@@ -1,6 +1,11 @@
 import type { Market, CategoryInfo } from './types';
 
-let BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
+let BACKEND_URL = process.env.NEXT_PUBLIC_API_URL;
+if (!BACKEND_URL) {
+  BACKEND_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://santibet-api.onrender.com'
+    : 'http://127.0.0.1:8000';
+}
 if (!BACKEND_URL.startsWith('http')) {
   BACKEND_URL = `https://${BACKEND_URL}`;
 }
